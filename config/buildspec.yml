@@ -1,0 +1,37 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      ruby: 3.1 # Use the Ruby version your Rails app requires
+      nodejs: 14 # For JavaScript assets, replace with your required version
+    commands:
+      - echo "Installing dependencies..."
+      - gem install bundler
+      - bundle install
+      - npm install -g yarn
+      - yarn install
+
+  pre_build:
+    commands:
+      - echo "Running database migrations..."
+      - RAILS_ENV=production bundle exec rake db:migrate
+
+  build:
+    commands:
+      - echo "Precompiling assets..."
+      - RAILS_ENV=production bundle exec rake assets:precompile
+
+  post_build:
+    commands:
+      - echo "Build completed successfully."
+
+artifacts:
+  files:
+    - "**/*"
+  discard-paths: no
+
+cache:
+  paths:
+    - vendor/bundle/**/* # Caches Ruby gems
+    - node_modules/**/* # Caches Node.js dependencies
