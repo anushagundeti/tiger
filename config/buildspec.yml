@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      ruby: 3.1 # Use the Ruby version your Rails app requires
+      ruby: 3.2.0 # Use the Ruby version your Rails app requires
       nodejs: 14 # For JavaScript assets, replace with your required version
     commands:
       - echo "Installing dependencies..."
